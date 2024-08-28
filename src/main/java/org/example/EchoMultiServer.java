@@ -5,9 +5,14 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EchoMultiServer {
-    private ServerSocket serverSocket;
+public final class EchoMultiServer {
+    private static EchoMultiServer instance;
+    private static ServerSocket serverSocket;
     public static List<EchoClientHandler> clientList = new ArrayList<>();
+
+    private EchoMultiServer(int port) throws IOException {
+        this.start(port);
+    }
 
     public void start(int port) throws IOException {
         serverSocket = new ServerSocket(port);
@@ -27,5 +32,12 @@ public class EchoMultiServer {
         for (EchoClientHandler client : clientList) {
             if (client != sender) client.out.println(message);
         }
+    }
+
+    public static EchoMultiServer getInstance() throws IOException {
+        if (instance == null) {
+            instance = new EchoMultiServer(5555);
+        }
+        return instance;
     }
 }

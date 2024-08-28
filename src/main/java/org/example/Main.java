@@ -4,10 +4,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-
 //        ChatServer server = ChatServer.getInstance();
-        EchoMultiServer echoMultiServer = new EchoMultiServer();
-        echoMultiServer.start(5555);
-
+        EchoMultiServer server = EchoMultiServer.getInstance();
     }
 }
